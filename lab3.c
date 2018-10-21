@@ -15,21 +15,28 @@ float factorial (float k)
 
 int main()
 {
-    int n=1;
-    double a, x, y, SM = 0.0;
+    double x, y, SM = 0, SE = 0, m = 0;
+    int n = 1;
 
-    for ( x = 0.1 ; x <= 1 ; x+=0.09)
+    for(x=0.1 ; x<=1 ; x+=0.1)
+    {
+        y = pow(M_E,(x*cos(pi/4)))*(cos(x*sin(pi/4)));
+
+
+        for(n=0 ; n<=25 ; n++)
         {
-             y = pow(M_E, (x*cos(pi/4))) * (cos(x*sin(pi/4))); //формула
-
-             do
-             {
-                  a = (((cos(n*(pi/4))/factorial(n))*pow(x, n))) + ((cos((n+1)*(pi/4))/factorial(n+1))*pow(x,(n+1)));//сума
-                  n++;
-                  SM+=a;
-             }
-             while ( n>=0 && n<=25 );
+            m = (cos(n*(pi/4))/factorial(n))*(pow(x,n));
+            SM += m;
         }
-    printf ("%f\n", SM); //вивід
+
+        do
+        {
+            m = (cos(n*(pi/4))/factorial(n))*(pow(x,n));
+            SE += m;
+        }
+        while(fabs(m)>0.0001);
+
+        printf("result:\n  y = %lf\n  SM = %lf\n  SE = %lf\n", y, SM, SE);
+    }
     return 0;
 }
