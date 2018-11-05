@@ -10,7 +10,7 @@ int main(void)
 
     printf("enter array lenght\n");
     scanf("%i", &q);
-    int mas1[q];
+    int mas1[100];
 
     srand (time (NULL));
 
@@ -26,62 +26,60 @@ int main(void)
         printf("%i\n", mas1[j]); //вивід масиву
     }
 
-    printf("what number do you want destroy?\n");
-    scanf("%i", &i);
+    printf ("index do you want delete?\n");
+    scanf ("%i", &i);
 
-    if(i>0 && i<=q)
-        printf("just a moment...\n");
+    if(i>=0 && i<q)
+        printf("done\n");
     else
     {
-        printf("fail of operation, number is not found\n");
+        printf("number not found\n");
         return 0;
     }
 
-    for (r=0; r<q ; r++)
-    {
-        mas1[i-1] = 0;
-        printf("%i\n", mas1[r]);
-    }
+    int mas2[100];
 
-    int mas2[q];
-    for(i=0 ; i<q ; i++)
+    for(j=0; j<q ; j++)
     {
-        mas2[i] = mas1[i];
+        mas2[j] = mas1[j];
     }
-    printf("adding new element\n");
+    for(j=i; j<q ; j++) // "видалення" елементу
+    {
+        mas2[j] = mas1[j+1];
+    }
+    for (j=0; j<q-1 ; j++)
+    {
+        printf("%i\n", mas2[j]); //вивід масиву без заданого елементу
+    }
 
     int mas3[100];
 
-    for(i=0 ; i<q-1 ; i++)
+    for (j=0; j<q-1 ; j++)
     {
-        mas3[i] = mas2[i];
+        mas3[j] = mas2[j];
     }
-
-    for(i=0 ; i<q ; i++)
+    for (j=1; j<q-1 ; j++) // додавання нового елемента
     {
-        if(mas2[i]==0)
+        if(mas2[j] == 0)
             continue;
-        if(mas2[0]%2 == 0)
+        else if(mas2[j]%2 == 0)
         {
-            mas3[i+1] = (mas2[q-1]+2);
-            break;
-        }
-        else if(mas2[i]%2 == 0)
-        {
-            for(int m = i+1 ; m<q+1 ; m++)
+            mas3[j+1] = mas2[j-1]+2;
+
+            for (i=j+1 ; i<q ; i++) //зсув масиву вправо на 1 елемент
             {
-                mas3[m+1] = mas2[m];
+                mas3[i+1] = mas2[i];
             }
 
-            mas3[i+1] = (mas2[i-1]+2);
             break;
         }
     }
 
-    printf("new array\n");
-    for(int a=0 ; a<q+1 ; a++)
+    printf ("new array\n");
+
+    for (r=0; r<q ; r++)
     {
-        printf("%d\n", mas3[a]);
+        printf("%i\n", mas3[r]); //вивід масиву
     }
 
     return 0;
