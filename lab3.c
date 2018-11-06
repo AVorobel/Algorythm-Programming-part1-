@@ -3,40 +3,46 @@
 #define M_E 2.718281
 #define pi 3.141592
 
-float factorial (float k)
+long long factorial(int x)
 {
-    float f=1;
-    for ( ;k>0;k--)
-    {
-        f = f*k;
-    }
-    return f;
+    if(x == 0 || x == 1)
+        {
+            return 1;
+        }
+    else
+        {
+            return x*factorial(x-1);
+        }
 }
 
 int main()
 {
-    double x, y, SM = 0, SE = 0, m = 0;
+    double x, y, SN = 0, SE = 0, m = 0;
     int n = 1;
 
-    for(x=0.1 ; x<=1 ; x+=0.1)
+    for(x=0.1 ; x<=1 ; x+=0.09)
     {
         y = pow(M_E,(x*cos(pi/4)))*(cos(x*sin(pi/4)));
 
 
-        for(n=0 ; n<=25 ; n++)
+        for(n=0 ; n<26 ; n++)
         {
             m = (cos(n*(pi/4))/factorial(n))*(pow(x,n));
-            SM += m;
+            SN += m;
         }
+
+        n=0;
+        SE=0;
 
         do
         {
             m = (cos(n*(pi/4))/factorial(n))*(pow(x,n));
             SE += m;
+            n++;
         }
-        while(fabs(m)>0.0001);
+        while(m>0.0001);
 
-        printf("result:\n  y = %lf\n  SM = %lf\n  SE = %lf\n", y, SM, SE);
+        printf("result:  y = %lf  SN = %lf  SE = %lf\n", y, SN, SE);
     }
     return 0;
 }
