@@ -33,8 +33,7 @@ int main(void)
             f = 0;
     }
 
-    int numLenght = strlen(nums);
-    strncat(txtEnd, nums, numLenght); 
+    strncat(txtEnd, nums, k); 
 
     printf("\n");
     for (int i = 0; i < strlen(txtEnd); i++) 
