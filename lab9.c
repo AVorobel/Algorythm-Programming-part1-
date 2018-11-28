@@ -3,15 +3,39 @@
 #include <string.h>
 #include <ctype.h>
 
+void write_file ();
+void copy_file();
+void consonant();
+
 int main ()
 {
     FILE *f;
 	FILE *fc;
 
-	int i, q, num, num1;
-	char * filename = "my_new_file.txt";
+    int q;
+    char * filename = "my_new_file.txt";
 
-	f = fopen(filename, "rt");
+    fc = fopen("my_new_file_copy.txt", "wt");
+    f = fopen(filename, "rt");
+
+    printf ("how much rows? (each row maximum - 512 symbols)\n");
+	scanf ("%d", &q);
+
+    write_file(filename, f, fc, q);
+    copy_file(filename, f, fc, q);
+    consonant(fc);
+
+    fclose(f);
+    fclose(fc);
+
+	return 0;
+}
+
+void write_file(char* filename, FILE *f, FILE *fc, int q)
+{
+    f = fopen(filename, "rt");
+
+    int i;
 
 	if ( (f = fopen(filename, "wt")) != NULL )
 	{
@@ -22,9 +46,6 @@ int main ()
         fprintf(stderr, "fail of operation\n");
         exit(1);
     }
-
-	printf ("how much rows? (each row maximum - 512 symbols)\n");
-	scanf ("%d", &q);
 
 	printf ("write : \n");
 
@@ -37,8 +58,11 @@ int main ()
     printf ("\n---succesfuly writed---\n");
 
     fclose(f);
-/////////////////////////////////////////////////////////////
-	int col = 512*q;
+}
+
+void copy_file (char* filename, FILE *f, FILE *fc, int q)
+{
+    int col = 512*q;
 	char arr[col];
     fc = fopen("my_new_file_copy.txt", "wt");
     f = fopen(filename, "rt");
@@ -49,8 +73,8 @@ int main ()
         printf ("copy from [number] to [number]\ninput numbers\n");
         scanf ("%d%d", &n, &k);
 
-        i=0;
-        num = fread (arr ,1 ,sizeof(arr) , f);
+        int i=0;
+        int num = fread (arr ,1 ,sizeof(arr) , f);
 
         fc = fopen("my_new_file_copy.txt", "wt");
         f = fopen(filename, "rt");
@@ -76,13 +100,16 @@ int main ()
 
     fclose(f);
     fclose(fc);
-//////////////////////////////////////////////////////////////
+}
+
+void consonant(FILE* fc)
+{
     fc = fopen("my_new_file_copy.txt", "rt");
 
     if (fc != NULL)
     {
         int count=0;
-
+        int num1;
         do
         {
             num1 = getc(fc);
@@ -96,6 +123,4 @@ int main ()
         printf ("there are/is %d consonant letter(s)\n", count);
     }
     fclose(fc);
-
-	return 0;
 }
