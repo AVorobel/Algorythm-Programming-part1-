@@ -10,7 +10,7 @@ void consonant();
 int main ()
 {
     FILE *f;
-	FILE *fc;
+    FILE *fc;
 
     int q;
     char * filename = "my_new_file.txt";
@@ -19,7 +19,7 @@ int main ()
     f = fopen(filename, "rt");
 
     printf ("how much rows? (each row maximum - 512 symbols)\n");
-	scanf ("%d", &q);
+    scanf ("%d", &q);
 
     write_file(filename, f, fc, q);
     copy_file(filename, f, fc, q);
@@ -76,8 +76,7 @@ void copy_file (char* filename, FILE *f, FILE *fc, int q)
         int i=0;
         int num = fread (arr ,1 ,sizeof(arr) , f);
 
-        fc = fopen("my_new_file_copy.txt", "wt");
-        f = fopen(filename, "rt");
+        fseek(f, 0, SEEK_SET);
 
     	while (fgets(arr,512,f)!=NULL)
     	{
